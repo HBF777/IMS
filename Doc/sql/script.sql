@@ -1,17 +1,17 @@
-create table apply_record
+create table expense_reports
 (
-    id            int auto_increment
+    id             int auto_increment
         primary key,
-    apply_user    int      null,
-    apply_project int      null,
-    apply_fund    int      null,
-    create_time   datetime null,
-    update_time   datetime null,
-    apply_amount  decimal  null,
-    approver      int      null comment '审批人id',
-    status        int      null,
-    constraint apply_record_id_uindex
-        unique (id)
+    user_id        int         null,
+    purchase_day   date        null,
+    invoice_number varchar(48) null comment '发票税号',
+    amount         decimal     null comment '报销金额',
+    vendor         varchar(32) null comment '发票的开票方',
+    category_id    int         null,
+    invoice_pdf    int         null,
+    created_time   timestamp   null,
+    update_time    timestamp   null,
+    del_Flag       int         null
 );
 
 create table file
@@ -29,6 +29,7 @@ create table file
     shard_size  int                null comment '分片大小|B',
     shard_total int                null comment '分片总数',
     `key`       varchar(32)        null comment '文件标识',
+    del_Flag    int                null,
     constraint key_unique
         unique (`key`),
     constraint path_unique
@@ -47,18 +48,51 @@ create table fund
     deadline    datetime null,
     start_time  datetime null,
     status      int      null,
+    end_date    datetime null,
+    fund_type   int      null,
+    description int      null,
+    del_Flag    int      null,
     constraint fund_id_uindex
         unique (id)
+);
+
+create table `group`
+(
+    id           int auto_increment
+        primary key,
+    name         varchar(32) null,
+    manager      int         null,
+    created_date datetime    null,
+    del_Flag     int         null
+);
+
+create table group_projects
+(
+    id         int auto_increment
+        primary key,
+    group_id   int null,
+    project_id int null,
+    del_Flag   int null
+);
+
+create table group_users
+(
+    id       int auto_increment
+        primary key,
+    group_id int null,
+    user_id  int null,
+    del_Flag int null
 );
 
 create table project
 (
     id           int auto_increment comment '主键'
         primary key,
-    project_name char(32) null,
-    creator      int      null,
-    status       int      not null comment '项目状态，0为正常，1为暂停报销，2为项目结束',
-    total_cost   decimal  null,
+    project_name char(32)      null,
+    creator      int           null,
+    status       int           not null comment '项目状态，0为正常，1为暂停报销，2为项目结束',
+    total_cost   decimal       null,
+    delFlag      int default 0 null,
     constraint project_id_uindex
         unique (id)
 )
@@ -83,16 +117,26 @@ create table role_class
 
 create table user
 (
-    id     int auto_increment
+    id       int auto_increment
         primary key,
-    name   char(16) null,
-    email  char(32) null,
-    role   int      null,
-    phone  char(12) null comment '手机号',
-    passwd char(16) null,
+    name     char(16) null,
+    email    char(32) null,
+    role     int      null,
+    phone    char(12) null comment '手机号',
+    passwd   char(16) null,
+    del_Flag int      null,
     constraint user_id_uindex
         unique (id)
 )
-    comment '用户表';
+    comment '用户表' auto_increment = 2;
 
+create table user_project_records
+(
+    id               int auto_increment
+        primary key,
+    user_id          int           null,
+    project_id       int           null,
+    participation_at datetime      null,
+    del_flag         int default 0 null
+);
 
