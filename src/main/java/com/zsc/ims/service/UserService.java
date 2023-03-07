@@ -11,6 +11,12 @@ import com.zsc.ims.domain.entity.User;
  */
 public interface UserService extends IService<User> {
 
-    public Integer createGroupAdministrator();
+    public Integer createGroupAdministrator(User user);
+
+    boolean checkUserNameUnique(String username);
+
+    boolean checkPhoneUnique(User user);
+
+    boolean checkEmailUnique(User user);
 }
 

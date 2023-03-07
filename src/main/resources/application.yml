@@ -1,8 +1,10 @@
+server:
+  port: 7777
 #?????
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lmf?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/ims?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: huba20020402
 mybatis-plus:
@@ -15,3 +17,4 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+  mapper-locations: classpath*:/mapper/**/*.xml

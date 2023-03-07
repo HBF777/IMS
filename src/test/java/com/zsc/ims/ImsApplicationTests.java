@@ -15,7 +15,7 @@ class ImsApplicationTests {
     private ProjectMapper projectMapper;
     @Test
     void contextLoads() {
-        projectMapper.selectList(null)
+        projectMapper.selectList(null);
 
     }
 

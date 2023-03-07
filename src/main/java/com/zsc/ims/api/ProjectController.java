@@ -14,8 +14,13 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
     @GetMapping("/{id}")
-    public ResponseResult ProjectList(@PathVariable Integer id){
-        ResponseResult result = projectService.GetProjectList();
+    public ResponseResult ProjectList(Integer pageNum, Integer pageSize,@PathVariable("id") Integer Groupid){
+        ResponseResult result = projectService.GetProjectList(Groupid,pageNum,pageSize);
+        return result;
+    }
+    @GetMapping("/info/{id}")
+    public ResponseResult GetProjectInfo(Integer userId){
+        projectService.getProjectInfo(userId);
         return null;
     }
 }
