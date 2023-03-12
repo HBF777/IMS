@@ -1,6 +1,8 @@
 package com.zsc.ims.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.zsc.ims.constants.RedisCacheConstants;
+import com.zsc.ims.constants.SystemConstants;
 import com.zsc.ims.domain.entity.LoginUser;
 import com.zsc.ims.enums.AppHttpCodeEnum;
 import com.zsc.ims.utils.JwtUtil;
@@ -51,7 +53,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         String userId = claims.getSubject();
         //从redis中获取用户信息
-        LoginUser loginUser = redisCache.getCacheObject("bloglogin:" + userId);
+        LoginUser loginUser = redisCache.getCacheObject(RedisCacheConstants.LOGIN + userId);
         //如果获取不到
         if(Objects.isNull(loginUser)){
             //说明登录过期  提示重新登录

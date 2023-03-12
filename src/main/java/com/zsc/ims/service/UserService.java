@@ -18,5 +18,7 @@ public interface UserService extends IService<User> {
     boolean checkPhoneUnique(User user);
 
     boolean checkEmailUnique(User user);
+
+    Integer createGroupMember(User user, String inviteCode);
 }
 

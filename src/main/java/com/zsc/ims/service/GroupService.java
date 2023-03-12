@@ -3,6 +3,8 @@ package com.zsc.ims.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zsc.ims.domain.entity.Group;
 
+import java.security.NoSuchAlgorithmException;
+
 /**
  * (Group)表服务接口
  *
@@ -11,6 +13,6 @@ import com.zsc.ims.domain.entity.Group;
  */
 public interface GroupService extends IService<Group> {
 
-    public Integer createNewGroup(Integer userId);
+    public void createNewGroup(Integer userId) throws NoSuchAlgorithmException;
 }
 

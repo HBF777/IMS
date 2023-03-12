@@ -10,7 +10,7 @@ import com.zsc.ims.mapper.UserMapper;
 import com.zsc.ims.mapper.UserRoleMapper;
 import com.zsc.ims.service.ProjectService;
 import com.zsc.ims.service.UserRoleService;
-import com.zsc.ims.service.UserService;
+import com.zsc.ims.service.UserService;;
 import com.zsc.ims.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,4 +59,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean checkEmailUnique(User user) {
         return count(Wrappers.<User>lambdaQuery().eq(User::getEmail,user.getEmail()))==0;
     }
+
+    @Override
+    public Integer createGroupMember(User user, String inviteCode) {
+
+        return null;
+    }
+
 }
